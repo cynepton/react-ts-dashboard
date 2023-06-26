@@ -1,3 +1,4 @@
+// Application Theme Setup
 import { createContext, useState, useMemo } from 'react';
 import { Theme, createTheme } from '@mui/material/styles';
 import {
@@ -7,8 +8,9 @@ import {
     ThemeSettingsPalette,
 } from '../types/theme';
 
-// color design tokens export
 /**
+ * <b>Dark Mode</b> color tokens
+ *
  * To generate color tokens, Install the Tailwind shades extension: https://github.com/bourhaouta/vscode-tailwindshades
  * Just highlight a color and press `ctrl + k` `ctrl + g` to generate the token.
  */
@@ -70,6 +72,12 @@ const darkModeColorTokens: ThemeColorTokens = {
     },
 };
 
+/**
+ * <b>Default (Light) Mode</b> color tokens
+ *
+ * To generate color tokens, Install the Tailwind shades extension: https://github.com/bourhaouta/vscode-tailwindshades
+ * Just highlight a color and press `ctrl + k` `ctrl + g` to generate the token.
+ */
 const defaultModeColorTokens: ThemeColorTokens = {
     grey: {
         100: '#141414',
@@ -129,33 +137,8 @@ const defaultModeColorTokens: ThemeColorTokens = {
 };
 
 /**
- * Get the theme settings palette object
- * @param mode the current {@link ThemeMode} mode
- * @param themeColorTokens the {@link ThemeColorTokens} object to use
- * @returns the generated {@link ThemeSettingsPalette} object
+ * Material UI typography theme settings object
  */
-const getThemesettingsPalette = (
-    mode: ThemeMode,
-    themeColorTokens: ThemeColorTokens,
-): ThemeSettingsPalette => {
-    return {
-        mode: mode,
-        primary: { main: themeColorTokens.primary[500] },
-        secondary: { main: themeColorTokens.greenAccent[500] },
-        neutral: {
-            dark: themeColorTokens.grey[700],
-            main: themeColorTokens.grey[500],
-            light: themeColorTokens.grey[100],
-        },
-        background: {
-            default:
-                mode === ThemeMode.DARK
-                    ? themeColorTokens.primary[500]
-                    : '#fcfcfc',
-        },
-    };
-};
-
 const typographyThemeSettingsObject = {
     fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
     fontSize: 12,
@@ -185,20 +168,61 @@ const typographyThemeSettingsObject = {
     },
 };
 
-export const tokens = (mode: ThemeMode): ThemeColorTokens => ({
+/**
+ * Get the theme settings palette object
+ * @param mode the current {@link ThemeMode} mode
+ * @param themeColorTokens the {@link ThemeColorTokens} object to use
+ * @returns the generated {@link ThemeSettingsPalette} object
+ */
+const getThemesettingsPalette = (
+    mode: ThemeMode,
+    themeColorTokens: ThemeColorTokens,
+): ThemeSettingsPalette => {
+    return {
+        mode: mode,
+        primary: { main: themeColorTokens.primary[500] },
+        secondary: { main: themeColorTokens.greenAccent[500] },
+        neutral: {
+            dark: themeColorTokens.grey[700],
+            main: themeColorTokens.grey[500],
+            light: themeColorTokens.grey[100],
+        },
+        background: {
+            default:
+                mode === ThemeMode.DARK
+                    ? themeColorTokens.primary[500]
+                    : '#fcfcfc',
+        },
+    };
+};
+
+/**
+ * Get the color tokens for the current mode
+ *
+ * @param mode the current {@link ThemeMode} mode
+ * @returns the generated {@link ThemeColorTokens} object
+ */
+export const getColorTokens = (mode: ThemeMode): ThemeColorTokens => ({
     ...(mode === ThemeMode.DARK ? darkModeColorTokens : defaultModeColorTokens),
 });
 
-// mui theme settings
-export const themeSettings = (mode: ThemeMode) => {
-    const colors = tokens(mode);
+/**
+ * Generate the theme settings object for the current mode
+ *
+ * @param mode the current {@link ThemeMode} mode
+ * @returns the generated {@link ThemeSettings} object
+ */
+export const createModeThemeSettings = (mode: ThemeMode) => {
+    const colors = getColorTokens(mode);
     return {
         palette: { ...getThemesettingsPalette(mode, colors) },
         typography: typographyThemeSettingsObject,
     };
 };
 
-// context for color mode
+/**
+ * React context for the theme
+ */
 export const ColorModeContext: React.Context<ColorModeContextType> =
     createContext({
         // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -218,6 +242,9 @@ export const useMode = (): [Theme, ColorModeContextType] => {
         [],
     );
 
-    const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+    const theme = useMemo(
+        () => createTheme(createModeThemeSettings(mode)),
+        [mode],
+    );
     return [theme, colorMode];
 };

@@ -1,6 +1,6 @@
 import { TeamMember, TeamMemberContactDetail } from '../types/team';
 import { ThemeMode } from '../types/theme';
-import { tokens } from '../theme/theme';
+import { getColorTokens } from '../theme/theme';
 
 export const mockDataTeam: TeamMember[] = [
     {
@@ -435,7 +435,7 @@ export const mockPieData = [
 export const mockLineData = [
     {
         id: 'japan',
-        color: tokens(ThemeMode.DARK).greenAccent[500],
+        color: getColorTokens(ThemeMode.DARK).greenAccent[500],
         data: [
             {
                 x: 'plane',
@@ -489,7 +489,7 @@ export const mockLineData = [
     },
     {
         id: 'france',
-        color: tokens(ThemeMode.DARK).blueAccent[300],
+        color: getColorTokens(ThemeMode.DARK).blueAccent[300],
         data: [
             {
                 x: 'plane',
@@ -543,7 +543,7 @@ export const mockLineData = [
     },
     {
         id: 'us',
-        color: tokens(ThemeMode.DARK).redAccent[200],
+        color: getColorTokens(ThemeMode.DARK).redAccent[200],
         data: [
             {
                 x: 'plane',
