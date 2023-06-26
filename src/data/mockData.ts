@@ -435,7 +435,7 @@ export const mockPieData = [
 export const mockLineData = [
     {
         id: 'japan',
-        color: getColorTokens(ThemeMode.DARK).greenAccent[500],
+        color: getColorTokens(ThemeMode.dark).greenAccent[500],
         data: [
             {
                 x: 'plane',
@@ -489,7 +489,7 @@ export const mockLineData = [
     },
     {
         id: 'france',
-        color: getColorTokens(ThemeMode.DARK).blueAccent[300],
+        color: getColorTokens(ThemeMode.dark).blueAccent[300],
         data: [
             {
                 x: 'plane',
@@ -543,7 +543,7 @@ export const mockLineData = [
     },
     {
         id: 'us',
-        color: getColorTokens(ThemeMode.DARK).redAccent[200],
+        color: getColorTokens(ThemeMode.dark).redAccent[200],
         data: [
             {
                 x: 'plane',

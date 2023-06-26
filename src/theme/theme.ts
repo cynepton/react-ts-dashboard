@@ -189,7 +189,7 @@ const getThemesettingsPalette = (
         },
         background: {
             default:
-                mode === ThemeMode.DARK
+                mode === ThemeMode.dark
                     ? themeColorTokens.primary[500]
                     : '#fcfcfc',
         },
@@ -203,7 +203,7 @@ const getThemesettingsPalette = (
  * @returns the generated {@link ThemeColorTokens} object
  */
 export const getColorTokens = (mode: ThemeMode): ThemeColorTokens => ({
-    ...(mode === ThemeMode.DARK ? darkModeColorTokens : defaultModeColorTokens),
+    ...(mode === ThemeMode.dark ? darkModeColorTokens : defaultModeColorTokens),
 });
 
 /**
@@ -230,13 +230,13 @@ export const ColorModeContext: React.Context<ColorModeContextType> =
     });
 
 export const useMode = (): [Theme, ColorModeContextType] => {
-    const [mode, setMode] = useState(ThemeMode.DARK);
+    const [mode, setMode] = useState(ThemeMode.dark);
 
     const colorMode = useMemo(
         () => ({
             toggleColorMode: () =>
                 setMode((prev) =>
-                    prev === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT,
+                    prev === ThemeMode.light ? ThemeMode.dark : ThemeMode.light,
                 ),
         }),
         [],

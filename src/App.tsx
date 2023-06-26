@@ -11,7 +11,7 @@ const App: React.FC = (): ReactElement => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <div className="app">
-                    <main className="contet">
+                    <main className="content">
                         <Topbar />
                     </main>
                 </div>

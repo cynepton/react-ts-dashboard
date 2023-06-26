@@ -1,7 +1,7 @@
 // create theme mode eum with light and dark theme modes
 export enum ThemeMode {
-    LIGHT = 'light',
-    DARK = 'dark',
+    light = 'light',
+    dark = 'dark',
 }
 
 type ThemeColorToken = {
