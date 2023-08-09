@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme/theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import Topbar from './scenes/global/Topbar';
+import Sidebar from './scenes/global/Sidebar';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 const App: React.FC = (): ReactElement => {
     const [theme, colorMode] = useMode();
@@ -10,11 +13,17 @@ const App: React.FC = (): ReactElement => {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <div className="app">
-                    <main className="content">
-                        <Topbar />
-                    </main>
-                </div>
+                <ProSidebarProvider>
+                    <div className="app">
+                        <Sidebar />
+                        <main className="content">
+                            <Topbar />
+                            <Routes>
+                                <Route path='/' element={<div>Hello</div>} />
+                            </Routes>
+                        </main>
+                    </div>
+                </ProSidebarProvider>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );
